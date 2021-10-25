@@ -1,13 +1,47 @@
 <% layout('/layouts/boilerplate') %>
 
-<div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-                Select A State
-        </button>
-        <%= states %> 
-        <!-- <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
-                <% for(let state of states){%>
-                        <li><a class="dropdown-item" ><%= state.state_name %></a></li>
-                <% } %> 
-        </ul> -->
-</div>
+<div class="container" style="width:600px;">
+  <h2 align="center">Find Center </h2><br /><br />
+  <form action="/centers" method="post">
+    <label for="states">Your State:</label>
+    <select name="states"id="states" class="form-select form-select-sm mb-3" >
+    </select>
+
+    <label for="districts">Your District:</label>
+    <select name="districts" id="districts" class="form-select form-select-sm mb-3" >
+    </select>
+    <input class="btn btn-success"type="submit" value="Submit">
+  </form>
+  </div> 
+
+  
+
+
+ <script>
+   $(document).ready(() => {
+    let stateId;
+    $('#states').click(() => {
+      $.get('https://cdn-api.co-vin.in/api/v2/admin/location/states',(data) => {
+        for(state of data.states)
+        {
+          $('#states').append(`<option value="${state.state_id}">${state.state_name}</option>`);
+        }
+      })
+
+      $(document).on('focus','#states',()=>{
+      location.reload();
+      });
+
+      $(document).on('change', '#states',()=>{
+      
+        stateId  = $('#states').find(":selected").val();
+        $.get(`https://cdn-api.co-vin.in/api/v2/admin/location/districts/${stateId}`,(districtData)=>{
+        for(district of districtData.districts)
+        {
+          $('#districts').append(`<option name="districtsId" id="districtsId" value="${district.district_id}">${district.district_name}</option>`);
+        }
+        })
+      })
+    })
+   })
+  </script>
