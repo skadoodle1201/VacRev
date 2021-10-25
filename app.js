@@ -31,10 +31,21 @@ app.get('/centers',(req,res)=>{
   res.render('centers',{districtsId});
 })
 
+app.get('/center',(req,res)=>{
+  let centerId = req.cookies.centerId;
+  res.render('center',{centerId});
+})
+
 app.post("/centers", (req, res) => {
   let  districtsId  = req.body.districts;
   res.cookie("districtsId", districtsId);
   res.redirect("/centers");
+})
+
+app.post("/center", (req, res) => {
+  let  centerId  = req.body.centerId;
+  res.cookie("centerId", centerId);
+  res.redirect("/center");
 })
 
 app.listen(3000,() =>{

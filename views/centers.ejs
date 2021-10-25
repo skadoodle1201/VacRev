@@ -1,10 +1,12 @@
 <% layout('/layouts/boilerplate') %>
 <div class="container" style="width:600px;">
   <h2 align="center">Centers In Your Area </h2><br /><br />
+<form action="/center" method="post">
+  <div id="name">
 
-<div id="name">
+  </div>
+</form>
 
-</div>
 
 </div>
 
@@ -14,8 +16,11 @@ $(document).ready(()=>{
   let d = new Date();
   let month = d.getMonth()+1;
   let day = d.getDate();
-  let districtsId = document.cookie.split('=')[1];
-  let output = (day<10 ? '0' : '') + day + '-' +(month<10 ? '0' : '') + month + '-'+ d.getFullYear() ;
+  let output = (day<10 ? '0' : '') + day + '-' +(month<10 ? '0' : '') + month + '-'+ d.getFullYear();
+  let districtsId =document.cookie.split('; ')
+                                  .find(row => row.startsWith('districtsId='))
+                                  .split('=')[1];
+  let block="";
   $.get(`https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id=${districtsId}&date=${output}`,(data)=>{
       if(data.centers.length === 0)
       {
@@ -23,13 +28,28 @@ $(document).ready(()=>{
       }
       for(center of data.centers)
       { 
+        let vax = "";
+        if(center.block_name == "Not Applicable")
+        {
+          block = ""
+        }
+        else block = center.block_name;
+        if(center.vaccine_fees === undefined)
+        {
+          
+            vax = center.sessions[0].vaccine;
+        }
+        else {
+          for(vac of center.vaccine_fees)
+          vax = vax +" "+vac.vaccine;
+        }
         $('#name').append(`<div class="card mb-3">
                               <h5 class="card-header">${center.name}</h5>
 
                               <div class="card-body"> 
-                                <p class="card-title fw-bold">${center.address} ${center.pincode}</p>
-                                <p class="card-title"><b>Vaccine: </b>${center.sessions[0].vaccine} <b>Price: </b>${center.fee_type}</p>
-                                <button sid="center" value="${center.center_id}"class="btn btn-primary">Go somewhere</button>
+                                <p class="card-title fw-bold">${center.address} ${block} ${center.pincode}</p>
+                                <p class="card-title"><b>Vaccine: </b>${vax} <b>Price: </b>${center.fee_type}</p>
+                                <button name="centerId" id="centerId" value="${center.center_id}" class="btn btn-primary">${center.name}</button>
                                 </div>
                               
                           </div>

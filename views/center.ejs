@@ -1,0 +1,38 @@
+<% layout('/layouts/boilerplate') %>
+123431-03-2021
+
+
+<div class="container" style="width:600px;">
+  <h2 align="center">Centers In Your Area </h2><br /><br />
+  <h1><%= centerId %> </h1>
+
+
+
+</div>
+
+
+<div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">Card title</h5>
+    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <a href="#" class="card-link">Card link</a>
+    <a href="#" class="card-link">Another link</a>
+  </div>
+</div>
+
+
+<script>
+  $(document).ready(()=>{
+    let d = new Date();
+    let month = d.getMonth()+1;
+    let day = d.getDate();
+    let output = (day<10 ? '0' : '') + day + '-' +(month<10 ? '0' : '') + month + '-'+ d.getFullYear();
+    let centerId = document.cookie.split('; ')
+                                  .find(row => row.startsWith('centerId'))
+                                  .split('=')[1];
+    $.get(`https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByCenter?center_id=${centerId}&date=${output}`,(data)=>{
+      console.log(data.centers);
+    })
+  })
+</script>
