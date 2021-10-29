@@ -1,28 +1,47 @@
 <% layout('/layouts/boilerplate') %>
-123431-03-2021
 
 
-<div class="container" style="width:600px;">
-  <h2 align="center">Centers In Your Area </h2><br /><br />
-  <h1><%= centerId %> </h1>
+<div class="container row">
+  <div>
+    <h2 align="center">Centers In Your Area </h2><br /><br />
+    <div class="card mb-3">
+      <div class="card-body">
+        <h5 class="card-title"><%= center.name %> </h5>
+        <h6 class="card-subtitle mb-2 text-muted"><%= center.address %> </h6>
+        <p class="card-text">Time: <%= center.from %> to <%= center.to %> </p>
+        <% if(center.vaccine_fees === undefined){ %>
+          <p class="card-text"><b>Vaccine: </b><%= center.sessions[0].vaccine %> </p>
+          <p class=" card-text"><b>Price: </b><%=center.fee_type%>  </p>
+        <% } else { %>
+          <% for(vac of center.vaccine_fees){ %>
+            <p class="card-text"><b>Vaccine: </b><%= vac.vaccine %></p>
+            <p class=" card-text"><b>Price: </b><%= vac.fee %>  </p>
+          <% } %> 
+        <% } %>
+        <p class="card-text"><b>Dates Available: </b> 
+          <% for(session of center.sessions){%>
+            <%=session.date%>
+          <% } %>  
+        </p>
+        <p class="card-text"><b>Slots Available: </b><%=center.sessions[0].slots%> </p>
+        <a href="#" class="card-link btn btn-primary">Schedule Appointment</a>
+        <a href="/" class="card-link btn btn-primary">Go to Home Page</a>
+      </div>
+    </div>
 
-
-
-</div>
-
-
-<div class="card" style="width: 18rem;">
-  <div class="card-body">
-    <h5 class="card-title">Card title</h5>
-    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    <a href="#" class="card-link">Card link</a>
-    <a href="#" class="card-link">Another link</a>
   </div>
+  
+
+
+
 </div>
 
 
-<script>
+
+
+
+
+<!-- <script>
   $(document).ready(()=>{
     let d = new Date();
     let month = d.getMonth()+1;
@@ -35,4 +54,4 @@
       console.log(data.centers);
     })
   })
-</script>
+</script> -->

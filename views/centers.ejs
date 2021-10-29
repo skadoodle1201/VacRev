@@ -3,7 +3,7 @@
   <h2 align="center">Centers In Your Area </h2><br /><br />
 <form action="/center" method="post">
   <div id="name">
-
+    
   </div>
 </form>
 
@@ -45,11 +45,10 @@ $(document).ready(()=>{
         }
         $('#name').append(`<div class="card mb-3">
                               <h5 class="card-header">${center.name}</h5>
-
                               <div class="card-body"> 
                                 <p class="card-title fw-bold">${center.address} ${block} ${center.pincode}</p>
                                 <p class="card-title"><b>Vaccine: </b>${vax} <b>Price: </b>${center.fee_type}</p>
-                                <button name="centerId" id="centerId" value="${center.center_id}" class="btn btn-primary">${center.name}</button>
+                                <button name="centerId" id="centerId" value="${center.center_id}" class="btn btn-primary">For More Info</button>
                                 </div>
                               
                           </div>

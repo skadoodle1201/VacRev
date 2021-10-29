@@ -22,6 +22,7 @@
     let stateId;
     $('#states').click(() => {
       $.get('https://cdn-api.co-vin.in/api/v2/admin/location/states',(data) => {
+        $('#states').append(`<option value="">Select Your State</option>`);
         for(state of data.states)
         {
           $('#states').append(`<option value="${state.state_id}">${state.state_name}</option>`);
