@@ -30,28 +30,4 @@
     </div>
 
   </div>
-  
-
-
-
 </div>
-
-
-
-
-
-
-<!-- <script>
-  $(document).ready(()=>{
-    let d = new Date();
-    let month = d.getMonth()+1;
-    let day = d.getDate();
-    let output = (day<10 ? '0' : '') + day + '-' +(month<10 ? '0' : '') + month + '-'+ d.getFullYear();
-    let centerId = document.cookie.split('; ')
-                                  .find(row => row.startsWith('centerId'))
-                                  .split('=')[1];
-    $.get(`https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByCenter?center_id=${centerId}&date=${output}`,(data)=>{
-      console.log(data.centers);
-    })
-  })
-</script> -->
