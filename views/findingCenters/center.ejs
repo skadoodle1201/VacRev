@@ -18,9 +18,9 @@
             <p class=" card-text"><b>Price: </b><%= vac.fee %>  </p>
           <% } %> 
         <% } %>
-        <p class="card-text"><b>Dates Available: </b> 
+        <p class="card-text"><b>Dates Available:</b> <br> 
           <% for(session of center.sessions){%>
-            <%=session.date%>
+            <%=session.date%> <br> 
           <% } %>  
         </p>
         <p class="card-text"><b>Slots Available: </b><%=center.sessions[0].slots%> </p>
