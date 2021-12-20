@@ -8,7 +8,9 @@ const methodOverride =require('method-override');
 const session = require('express-session');
 const flash = require('connect-flash');
 
-const centerRoutes = require('./routes/centerRouters')
+const centerRoutes = require('./routes/centerRouters');
+const userRoutes  = require('./routes/users');
+const reviewRoutes = require('./routes/review')
 
 
 const passport = require('passport');
@@ -74,7 +76,9 @@ app.get('/',(req,res)=>{
   res.render('home');
 })
 
-app.use('/findingCenters',centerRoutes);  
+app.use('/findingCenters',centerRoutes);
+app.use('/',userRoutes);
+app.use('/findCenters/center/reviews',reviewRoutes);
 
 app.listen(3000,() =>{
         console.log("Listening on Port 3000");
