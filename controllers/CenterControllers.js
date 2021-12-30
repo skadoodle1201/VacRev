@@ -1,5 +1,5 @@
 const axios = require('axios');
-
+const Review = require('../models/reviews')
 
 module.exports.districtRender = (req,res)=>{
   let districtsId = req.cookies.districtsId;
@@ -19,7 +19,8 @@ module.exports.centerRender = async(req,res)=>{
   let output = (day<10 ? '0' : '') + day + '-' +(month<10 ? '0' : '') + month + '-'+ d.getFullYear();
   const response = await axios.get(`https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByCenter?center_id=${centerId}&date=${output}`);
   let center = response.data.centers;
-  res.render('findingCenters/center',{centerId,center});
+  let reviews = await Review.findById(centerId);
+  res.render('findingCenters/center',{centerId,center,reviews});
 }
 
 module.exports.centers = (req, res) => {
