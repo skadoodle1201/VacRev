@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const reviewSchema = new Schema({
-    centerID  : Number ,
+    centerID  : String ,
+    username : String,
     body: String,
     rating: Number,
     author:{

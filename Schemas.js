@@ -27,7 +27,6 @@ const Joi = BaseJoi.extend(extension)
 
 module.exports.reviewSchema = Joi.object({
     review: Joi.object({
-        centerID : Joi.number().required(),
         rating  : Joi.number().min(1).max(5).required(),
         body: Joi.string().required().escapeHTML()
     }).required()
