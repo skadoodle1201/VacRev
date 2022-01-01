@@ -9,7 +9,8 @@ const session = require('express-session');
 const flash = require('connect-flash');
 
 const centerRoutes = require('./routes/centerRouters')
-
+const usersRoutes= require('./routes/usersRouters');
+const reviewsRoutes= require('./routes/reviewsRouters');
 
 const passport = require('passport');
 const User = require('./models/users');
@@ -74,7 +75,10 @@ app.get('/',(req,res)=>{
   res.render('home');
 })
 
+
+
 app.use('/findingCenters',centerRoutes);  
+app.use('/',usersRoutes);
 
 app.listen(3000,() =>{
         console.log("Listening on Port 3000");
