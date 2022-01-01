@@ -1,7 +1,7 @@
 const express = require('express');
 const router =  express.Router();
 
-const center  = require('../controllers/centerControllers');
+const center  = require('../controllers/CenterControllers');
 
 router.route('/findCenter') // Getting the Districs
   .get(center.districtRender)
