@@ -19,14 +19,14 @@ const LocalStrategy = require("passport-local");
 const dbUrl = "mongodb://localhost:27017/vac-rev";
 
 mongoose.connect(dbUrl, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
+	useNewUrlParser: true,
+	useUnifiedTopology: true,
 });
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error"));
 db.once("open", () => {
-  console.log("database connected");
+	console.log("database connected");
 });
 
 app.use(express.json());
@@ -39,14 +39,14 @@ app.use(express.static(path.join(__dirname, "/public/")));
 
 app.use(cookieparser());
 const sessionConfig = {
-  secret: "thisshouldbeabettersecret!",
-  resave: false,
-  saveUninitialized: true,
-  cookie: {
-    httpOnly: true,
-    expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
-    maxAge: 1000 * 60 * 60 * 24 * 7,
-  },
+	secret: "thisshouldbeabettersecret!",
+	resave: false,
+	saveUninitialized: true,
+	cookie: {
+		httpOnly: true,
+		expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+		maxAge: 1000 * 60 * 60 * 24 * 7,
+	},
 };
 
 app.use(session(sessionConfig));
@@ -60,20 +60,34 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 app.use((req, res, next) => {
-  res.locals.currentUser = req.user;
-  res.locals.success = req.flash("success");
-  res.locals.error = req.flash("error");
-  next();
+	res.locals.currentUser = req.user;
+	res.locals.success = req.flash("success");
+	res.locals.error = req.flash("error");
+	next();
 });
 
 app.get("/", (req, res) => {
-  res.render("home");
+	res.render("home");
 });
 
 app.use("/findingCenters", centerRoutes);
 app.use("/", userRoutes);
 app.use("/findCenters/center/reviews", reviewRoutes);
 
+app.get("/guidelines", (req, res) => {
+	res.render("guidelines");
+});
+
+app.get("/blog", (req, res) => {
+	res.render("blogs/blog");
+});
+app.get("/blogpost1", (req, res) => {
+	res.render("blogs/blogpost1");
+});
+app.get("/blogpost2", (req, res) => {
+	res.render("blogs/blogpost2");
+});
+
 app.listen(3000, () => {
-  console.log("Listening on Port 3000");
+	console.log("Listening on Port 3000");
 });
