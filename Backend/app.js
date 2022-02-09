@@ -7,6 +7,7 @@ const mongoose = require("mongoose");
 const methodOverride = require("method-override");
 const session = require("express-session");
 const flash = require("connect-flash");
+const cors = require("cors");
 
 const centerRoutes = require("./routes/centerRouters");
 const userRoutes = require("./routes/users");
@@ -36,6 +37,7 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "/public/")));
+app.use(cors());
 
 app.use(cookieparser());
 const sessionConfig = {
@@ -88,6 +90,6 @@ app.get("/blogpost2", (req, res) => {
 	res.render("blogs/blogpost2");
 });
 
-app.listen(3000, () => {
-	console.log("Listening on Port 3000");
+app.listen(8000, () => {
+	console.log("Listening on Port 8000");
 });
